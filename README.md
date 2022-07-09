@@ -24,6 +24,11 @@ Create a `.env` file in the project root and add your database credentials in th
 DATABASE_URL="mysql://username:password@127.0.0.1:3306/bug-test"
 ```
 
+Push the schema to the db
+```
+$ npx prisma db push
+```
+
 Run the example
 ```bash
 $ npm start
@@ -104,7 +109,7 @@ Invalid `db.nft.create()` invocation in
 The unsigned value should not be ranged checked within the signed range and the value should be written to the db table.
 
 ### Prisma information
-```
+```prisma
 generator client {
   provider = "prisma-client-js"
 }
