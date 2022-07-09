@@ -1,0 +1,20 @@
+{
+  "name": "@kebian/prisma-bug-uint64",
+  "version": "1.0.0",
+  "description": "Demonstrates bug where saving an unsigned int64 value causes an error within Prisma.",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "DEBUG=* ts-node src/index.ts",
+    "test": "TS_NODE_FILES=true mocha -r ts-node/register 'tests/**/*.ts'"
+  },
+  "author": "kebian",
+  "license": "ISC",
+  "devDependencies": {
+    "prisma": "^4.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.0.0",
+    "ts-node": "^10.8.2"
+  }
+}
