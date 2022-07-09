@@ -10,50 +10,19 @@ Prisma will create the correct native types for mariadb / mysql but there are st
 
 ### How to reproduce
 
-I made a [small git repo](https://github.com/kebian/prisma-bug-uint64) to demonstrate the problem.
-
-Declare a simple scheme like this...
-
+Clone this repository
+```bash
+$ git clone https://github.com/kebian/prisma-bug-uint64
 ```
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
-}
-
-model Nft {
-  id    String @id @default(uuid())
-  price BigInt @db.UnsignedBigInt // The field is created as unsigned
-}
+Install dependencies
+```bash
+$ npm ci
+```
+Run the example
+```bash
+$ npm start
 ```
 
-And then actually try and insert a record with a price greater than the maximum signed int64 ...
-
-```ts
-import { PrismaClient } from "@prisma/client"
-
-const main = async() => {
-    const db = new PrismaClient()
-    // define a value greater than max i64
-    const bigval = 32000000000000000000n
-
-    // value is correctly printed by node
-    console.log('bigval is', bigval)
-
-    // This will throw a PrismaClientKnownRequestError error of P2033
-    // Query parsing failure: A number used in the query does not fit into a 64 bit signed integer. Consider using `BigInt` as field 
-    // type if you're trying to store large integers.
-    await db.nft.create({ data: { price: bigval }})
-}
-
-main().catch(console.error)
-```
-
-
-It's correct, it doesn't fit in to a signed 64 bit integer but I'm trying to put it in to an _unsigned_ 64 bit integer.
 
 Full debug output:
 ```
