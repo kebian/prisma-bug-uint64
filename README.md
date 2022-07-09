@@ -18,6 +18,12 @@ Install dependencies
 ```bash
 $ npm ci
 ```
+
+Create a `.env` file in the project root and add your database credentials in the following format
+```
+DATABASE_URL="mysql://username:password@127.0.0.1:3306/bug-test"
+```
+
 Run the example
 ```bash
 $ npm start
